@@ -1,0 +1,100 @@
+version: '3.5'
+
+services:
+  app:
+    image: swarmpit/swarmpit:latest
+    environment:
+      - SWARMPIT_DB=http://db:5984
+      - SWARMPIT_INFLUXDB=http://influxdbs:8086
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - net
+      - traefik_public
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 2048M
+        reservations:
+          cpus: '0.25'
+          memory: 512M
+      placement:
+        constraints:
+          - node.hostname == docker-desktop
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik_public
+        - traefik.http.services.swarmpit.loadbalancer.server.port=8080
+        - traefik.http.routers.swarmpit.entryPoints=web
+        - traefik.http.routers.swarmpit.service=swarmpit
+        - traefik.http.routers.swarmpit.rule=Host(`swarmpit.local`)
+
+  db:
+    image: couchdb:2.3.0
+    volumes:
+      - db-data:/opt/couchdb/data
+    networks:
+      - net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.30'
+          memory: 256M
+        reservations:
+          cpus: '0.15'
+          memory: 128M
+      placement:
+        constraints:
+          - node.hostname == docker-desktop
+
+  influxdbs:
+    image: influxdb:1.7
+    volumes:
+      - influx-data:/var/lib/influxdb
+    networks:
+      - net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.60'
+          memory: 512M
+        reservations:
+          cpus: '0.30'
+          memory: 128M
+      placement:
+        constraints:
+          - node.hostname == docker-desktop
+
+  agent:
+    image: swarmpit/agent:latest
+    environment:
+      - DOCKER_API_VERSION=1.35
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - net
+    deploy:
+      mode: global
+      labels:
+        swarmpit.agent: 'true'
+      resources:
+        limits:
+          cpus: '0.10'
+          memory: 64M
+        reservations:
+          cpus: '0.05'
+          memory: 32M
+
+networks:
+  net:
+    driver: overlay
+    attachable: true
+  traefik_public:
+    external: true
+
+volumes:
+  db-data:
+    driver: local
+  influx-data:
+    driver: local

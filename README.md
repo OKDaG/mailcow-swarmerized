@@ -1,5 +1,9 @@
 # mailcow: dockerized - 🐮 + 🐋 = 💕
 
+## Docker Swarm
+
+This fork adds the possibility to deploy mailcow dockerized to Docker Swarm. Work in progress.
+
 ## Want to support mailcow?
 
 Please [consider a support contract with Servercow](https://www.servercow.de/mailcow?lang=en#support) to support further development. _We_ support _you_ while _you_ support _us_. :)

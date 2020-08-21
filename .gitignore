@@ -6,6 +6,7 @@ data/conf/dovecot/dovecot-master.passwd
 data/conf/dovecot/dovecot-master.userdb
 mailcow.conf
 mailcow.conf_backup
+mailcowswarm.conf
 data/conf/nginx/*.active
 data/conf/postfix/sni.map
 data/conf/postfix/sni.map.db
