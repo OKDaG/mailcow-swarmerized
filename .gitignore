@@ -6,7 +6,7 @@ data/conf/dovecot/dovecot-master.passwd
 data/conf/dovecot/dovecot-master.userdb
 mailcow.conf
 mailcow.conf_backup
-mailcowswarm.conf
+mailcow_swarm.conf
 data/conf/nginx/*.active
 data/conf/postfix/sni.map
 data/conf/postfix/sni.map.db
@@ -54,3 +54,4 @@ update_diffs/
 .github/
 docker-compose.override.yml
 refresh_images.sh
+testenv/

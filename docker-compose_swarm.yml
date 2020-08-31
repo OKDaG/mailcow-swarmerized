@@ -233,26 +233,26 @@ services:
         labels:
           - traefik.enable=true
           - traefik.docker.network=traefik_public
-          - traefik.http.services.imap.loadbalancer.server.port=143
-          - traefik.http.routers.imap.entryPoints=imap
-          - traefik.http.routers.imap.service=imap
-          - traefik.http.routers.imap.rule=HostSNI(`*`)
-          - traefik.http.services.imaps.loadbalancer.server.port=993
-          - traefik.http.routers.imaps.entryPoints=imaps
-          - traefik.http.routers.imaps.service=imaps
-          - traefik.http.routers.imaps.rule=HostSNI(`*`)
-          - traefik.http.services.pop.loadbalancer.server.port=110
-          - traefik.http.routers.pop.entryPoints=pop
-          - traefik.http.routers.pop.service=pop
-          - traefik.http.routers.pop.rule=HostSNI(`*`)
-          - traefik.http.services.pops.loadbalancer.server.port=995
-          - traefik.http.routers.pops.entryPoints=pop
-          - traefik.http.routers.pops.service=pop
-          - traefik.http.routers.pops.rule=HostSNI(`*`)
-          - traefik.http.services.sieve.loadbalancer.server.port=4190
-          - traefik.http.routers.sieve.entryPoints=sieve
-          - traefik.http.routers.sieve.service=sieve
-          - traefik.http.routers.sieve.rule=HostSNI(`*`)
+          - traefik.tcp.services.imap.loadbalancer.server.port=143
+          - traefik.tcp.routers.imap.entryPoints=imap
+          - traefik.tcp.routers.imap.service=imap
+          - traefik.tcp.routers.imap.rule=HostSNI(`*`)
+          - traefik.tcp.services.imaps.loadbalancer.server.port=993
+          - traefik.tcp.routers.imaps.entryPoints=imaps
+          - traefik.tcp.routers.imaps.service=imaps
+          - traefik.tcp.routers.imaps.rule=HostSNI(`*`)
+          - traefik.tcp.services.pop.loadbalancer.server.port=110
+          - traefik.tcp.routers.pop.entryPoints=pop
+          - traefik.tcp.routers.pop.service=pop
+          - traefik.tcp.routers.pop.rule=HostSNI(`*`)
+          - traefik.tcp.services.pops.loadbalancer.server.port=995
+          - traefik.tcp.routers.pops.entryPoints=pop
+          - traefik.tcp.routers.pops.service=pop
+          - traefik.tcp.routers.pops.rule=HostSNI(`*`)
+          - traefik.tcp.services.sieve.loadbalancer.server.port=4190
+          - traefik.tcp.routers.sieve.entryPoints=sieve
+          - traefik.tcp.routers.sieve.service=sieve
+          - traefik.tcp.routers.sieve.rule=HostSNI(`*`)
 
     postfix-mailcow:
       image: mailcow/postfix:1.51
@@ -288,18 +288,18 @@ services:
         labels:
           - traefik.enable=true
           - traefik.docker.network=traefik_public
-          - traefik.http.services.smtp.loadbalancer.server.port=25
-          - traefik.http.routers.smtp.entryPoints=smtp
-          - traefik.http.routers.smtp.service=smtp
-          - traefik.http.routers.smtp.rule=HostSNI(`*`)
-          - traefik.http.services.smtps.loadbalancer.server.port=465
-          - traefik.http.routers.smtps.entryPoints=smtps
-          - traefik.http.routers.smtps.service=smtps
-          - traefik.http.routers.smtps.rule=HostSNI(`*`)
-          - traefik.http.services.submission.loadbalancer.server.port=587
-          - traefik.http.routers.submission.entryPoints=submission
-          - traefik.http.routers.submission.service=submission
-          - traefik.http.routers.submission.rule=HostSNI(`*`)
+          - traefik.tcp.services.smtp.loadbalancer.server.port=25
+          - traefik.tcp.routers.smtp.entryPoints=smtp
+          - traefik.tcp.routers.smtp.service=smtp
+          - traefik.tcp.routers.smtp.rule=HostSNI(`*`)
+          - traefik.tcp.services.smtps.loadbalancer.server.port=465
+          - traefik.tcp.routers.smtps.entryPoints=smtps
+          - traefik.tcp.routers.smtps.service=smtps
+          - traefik.tcp.routers.smtps.rule=HostSNI(`*`)
+          - traefik.tcp.services.submission.loadbalancer.server.port=587
+          - traefik.tcp.routers.submission.entryPoints=submission
+          - traefik.tcp.routers.submission.service=submission
+          - traefik.tcp.routers.submission.rule=HostSNI(`*`)
 
     memcached-mailcow:
       image: memcached:alpine

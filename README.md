@@ -1,4 +1,4 @@
-# mailcow: dockerized - 🐮 + 🐋 = 💕
+# mailcow: swarmerized - 🐮 + 🐋 = 💕
 
 ## Docker Swarm Support
 
