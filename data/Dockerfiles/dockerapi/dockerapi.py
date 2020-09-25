@@ -427,7 +427,7 @@ def startFlaskAPI():
   except:
     print ("Cannot initialize TLS, retrying in 5s...")
     time.sleep(5)
-  app.run(debug=False, host='0.0.0.0', port=5555, threaded=True, ssl_context=ctx)
+  app.run(debug=False, host='0.0.0.0', port=443, threaded=True, ssl_context=ctx)
 
 api.add_resource(containers_get, '/containers/json')
 api.add_resource(swarm_containers_get, '/swarmcontainers/json')
