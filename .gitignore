@@ -55,3 +55,4 @@ update_diffs/
 docker-compose.override.yml
 refresh_images.sh
 testenv/
+.venv/
