@@ -18,7 +18,10 @@ import socket
 import subprocess
 import traceback
 import requests
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
 from ipaddress import IPv4Interface
+
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 docker_client = docker.DockerClient(base_url='unix://var/run/docker.sock', version='auto')
 app = Flask(__name__)
@@ -27,7 +30,7 @@ api = Api(app)
 # get docker api service (deployed globally) in swarm to get container addresses
 def get_dockerapi_tasks():
   dockerapi_tasks = []
-  for dockerapi_service in docker_client.services.list(filters={"name":"mailcow_dockerapi-mailcow"}):
+  for dockerapi_service in docker_client.services.list(filters={"name": os.environ['COMPOSE_PROJECT_NAME'] + "_dockerapi-mailcow"}):
     for dockerapi_task in docker_client.services.get(dockerapi_service.attrs['ID']).tasks():
       dockerapi_tasks.append(dockerapi_task.get('NetworksAttachments')[0].get('Addresses')[0])
   return dockerapi_tasks

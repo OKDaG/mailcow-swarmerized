@@ -114,7 +114,7 @@ services:
         - API_KEY=${API_KEY:-invalid}
         - API_KEY_READ_ONLY=${API_KEY_READ_ONLY:-invalid}
         - API_ALLOW_FROM=${API_ALLOW_FROM:-invalid}
-        - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME:-mailcow-dockerized}
+        - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME:-mailcow}
         - SKIP_SOLR=${SKIP_SOLR:-y}
         - SKIP_CLAMD=${SKIP_CLAMD:-n}
         - SKIP_SOGO=${SKIP_SOGO:-n}
@@ -186,7 +186,7 @@ services:
         - MASTER=${MASTER:-y}
         - REDIS_SLAVEOF_IP=${REDIS_SLAVEOF_IP:-}
         - REDIS_SLAVEOF_PORT=${REDIS_SLAVEOF_PORT:-}
-        - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME:-mailcow-dockerized}
+        - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME:-mailcow}
       tty: true
       hostname: ${MAILCOW_HOSTNAME}
       networks:
@@ -320,6 +320,7 @@ services:
       environment:
         - DBROOT=${DBROOT}
         - TZ=${TZ}
+        - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME:-mailcow}
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock:ro
         - /opt/config/mailcow/Dockerfiles/dockerapi/dockerapi.py:/app/dockerapi.py:ro

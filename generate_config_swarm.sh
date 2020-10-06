@@ -166,7 +166,7 @@ export TZ=${MAILCOW_TZ}
 
 # Fixed project name
 
-export COMPOSE_PROJECT_NAME=mailcowdockerized
+export COMPOSE_PROJECT_NAME=mailcow
 
 # Set this to "allow" to enable the anyone pseudo user. Disabled by default.
 # When enabled, ACL can be created, that apply to "All authenticated users"
