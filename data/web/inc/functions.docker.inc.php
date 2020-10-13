@@ -24,7 +24,7 @@ function docker($action, $service_name = null, $attr1 = null, $attr2 = null, $ex
         if (!empty($containers)) {
           foreach ($containers as $container) {
             if (isset($container['Config']['Labels']['com.docker.swarm.service.name'])
-              && $container['Config']['Labels']['com.docker.swarm.service.name'] == $service_name
+              && $container['Config']['Labels']['com.docker.swarm.service.name'] == strtolower(getenv('COMPOSE_PROJECT_NAME')) . "_" . $service_name
               && strtolower($container['Config']['Labels']['com.docker.stack.namespace']) == strtolower(getenv('COMPOSE_PROJECT_NAME'))) {
               return trim($container['Id']);
             }
