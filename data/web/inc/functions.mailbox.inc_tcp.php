@@ -2939,7 +2939,6 @@ function mailbox($_action, $_type, $_data = null, $_extra = null) {
         break;
         case 'spam_score':
           $curl = curl_init();
-          curl_setopt($curl, CURLOPT_UNIX_SOCKET_PATH, '/var/lib/rspamd/rspamd.sock');
           curl_setopt($curl, CURLOPT_URL,"http://rspamd/actions");
           curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
           $default_actions = curl_exec($curl);

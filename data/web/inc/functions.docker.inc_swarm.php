@@ -23,9 +23,9 @@ function docker($action, $service_name = null, $attr1 = null, $attr2 = null, $ex
         $containers = json_decode($response, true);
         if (!empty($containers)) {
           foreach ($containers as $container) {
-            if (isset($container['Config']['Labels']['com.docker.compose.service'])
-              && $container['Config']['Labels']['com.docker.compose.service'] == $service_name
-              && strtolower($container['Config']['Labels']['com.docker.compose.project']) == strtolower(getenv('COMPOSE_PROJECT_NAME'))) {
+            if (isset($container['Config']['Labels']['com.docker.swarm.service.name'])
+              && $container['Config']['Labels']['com.docker.swarm.service.name'] == strtolower(getenv('COMPOSE_PROJECT_NAME')) . "_" . $service_name
+              && strtolower($container['Config']['Labels']['com.docker.stack.namespace']) == strtolower(getenv('COMPOSE_PROJECT_NAME'))) {
               return trim($container['Id']);
             }
           }
@@ -48,9 +48,9 @@ function docker($action, $service_name = null, $attr1 = null, $attr2 = null, $ex
         $containers = json_decode($response, true);
         if (!empty($containers)) {
           foreach ($containers as $container) {
-            if (strtolower($container['Config']['Labels']['com.docker.compose.project']) == strtolower(getenv('COMPOSE_PROJECT_NAME'))) {
-              $out[$container['Config']['Labels']['com.docker.compose.service']]['State'] = $container['State'];
-              $out[$container['Config']['Labels']['com.docker.compose.service']]['Config'] = $container['Config'];
+            if (strtolower($container['Config']['Labels']['com.docker.stack.namespace']) == strtolower(getenv('COMPOSE_PROJECT_NAME'))) {
+              $out[$container['Config']['Labels']['com.docker.swarm.service.name']]['State'] = $container['State'];
+              $out[$container['Config']['Labels']['com.docker.swarm.service.name']]['Config'] = $container['Config'];
             }
           }
         }
@@ -89,20 +89,20 @@ function docker($action, $service_name = null, $attr1 = null, $attr2 = null, $ex
         if (!empty($decoded_response)) {
           if (empty($service_name)) {
             foreach ($decoded_response as $container) {
-              if (isset($container['Config']['Labels']['com.docker.compose.project'])
-                && strtolower($container['Config']['Labels']['com.docker.compose.project']) == strtolower(getenv('COMPOSE_PROJECT_NAME'))) {
+              if (isset($container['Config']['Labels']['com.docker.stack.namespace'])
+                && strtolower($container['Config']['Labels']['com.docker.stack.namespace']) == strtolower(getenv('COMPOSE_PROJECT_NAME'))) {
                 unset($container['Config']['Env']);
-                $out[$container['Config']['Labels']['com.docker.compose.service']]['State'] = $container['State'];
-                $out[$container['Config']['Labels']['com.docker.compose.service']]['Config'] = $container['Config'];
+                $out[$container['Config']['Labels']['com.docker.swarm.service.name']]['State'] = $container['State'];
+                $out[$container['Config']['Labels']['com.docker.swarm.service.name']]['Config'] = $container['Config'];
               }
             }
           }
           else {
-            if (isset($decoded_response['Config']['Labels']['com.docker.compose.project']) 
-              && strtolower($decoded_response['Config']['Labels']['com.docker.compose.project']) == strtolower(getenv('COMPOSE_PROJECT_NAME'))) {
+            if (isset($decoded_response['Config']['Labels']['com.docker.stack.namespace']) 
+              && strtolower($decoded_response['Config']['Labels']['com.docker.stack.namespace']) == strtolower(getenv('COMPOSE_PROJECT_NAME'))) {
               unset($container['Config']['Env']);
-              $out[$decoded_response['Config']['Labels']['com.docker.compose.service']]['State'] = $decoded_response['State'];
-              $out[$decoded_response['Config']['Labels']['com.docker.compose.service']]['Config'] = $decoded_response['Config'];
+              $out[$decoded_response['Config']['Labels']['com.docker.swarm.service.name']]['State'] = $decoded_response['State'];
+              $out[$decoded_response['Config']['Labels']['com.docker.swarm.service.name']]['Config'] = $decoded_response['Config'];
             }
           }
         }
